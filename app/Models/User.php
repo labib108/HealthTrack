@@ -44,4 +44,20 @@ class User extends Authenticatable
     {
         return $this->is_active;
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function glucoseReadings()
+    {
+        return $this->hasMany(GlucoseReading::class);
+    }
 }
