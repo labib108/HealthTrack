@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Events\Glucose\GlucoseReadingCritical;
+use App\Events\Glucose\GlucoseReadingRecorded;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Glucose\StoreGlucoseReadingRequest;
 use App\Http\Requests\Api\V1\Glucose\UpdateGlucoseReadingRequest;
@@ -62,6 +63,7 @@ class GlucoseReadingController extends Controller
 
         $reading = $this->glucoseService->createReading($user, $data);
 
+        Event::dispatch(new GlucoseReadingRecorded($reading));
         if ($reading->requires_alert) {
             Event::dispatch(new GlucoseReadingCritical($reading));
         }
@@ -109,6 +111,7 @@ class GlucoseReadingController extends Controller
 
         $updated = $this->glucoseService->updateReading($reading, $data);
 
+        Event::dispatch(new GlucoseReadingRecorded($updated));
         if ($updated->requires_alert) {
             Event::dispatch(new GlucoseReadingCritical($updated));
         }

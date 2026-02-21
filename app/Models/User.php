@@ -60,4 +60,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(GlucoseReading::class);
     }
+
+    public function userConditions()
+    {
+        return $this->hasMany(UserCondition::class);
+    }
+
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
+
+    public function administrationLogs()
+    {
+        return $this->hasMany(AdministrationLog::class);
+    }
 }

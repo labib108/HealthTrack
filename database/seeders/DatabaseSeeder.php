@@ -15,11 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            DrugSeeder::class,
+            RuleDefinitionSeeder::class,
         ]);
+
+        $user = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => 'password',  // Mutator hashes it; bcrypt would be ignored
+            ]
+        );
+
+        $this->call([HealthDataSeeder::class]);
     }
 }
