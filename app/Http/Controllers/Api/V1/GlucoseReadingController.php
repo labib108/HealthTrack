@@ -110,7 +110,7 @@ class GlucoseReadingController extends Controller
         $updated = $this->glucoseService->updateReading($reading, $data);
 
         if ($updated->requires_alert) {
-            Event::dispatch(new \App\Events\Glucose\GlucoseReadingCritical($updated));
+            Event::dispatch(new GlucoseReadingCritical($updated));
         }
 
         return response()->json([

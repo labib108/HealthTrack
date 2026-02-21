@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\GlucoseReadingController;
 | All routes here are prefixed with /api/v1
 */
 
+
 // Auth routes
 Route::prefix('auth')->group(function () {
 
@@ -34,11 +35,11 @@ Route::middleware('auth:sanctum')->prefix('profile')->group(function () {
 });
 
 // Glucose logging (blood glucose time-series, user-scoped)
-Route::middleware('auth:sanctum')->prefix('glucose')->group(function () {
-    Route::get('/', [GlucoseReadingController::class, 'index']);
-    Route::post('/', [GlucoseReadingController::class, 'store']);
-    Route::get('/{id}', [GlucoseReadingController::class, 'show']);
-    Route::put('/{id}', [GlucoseReadingController::class, 'update']);
-    Route::delete('/{id}', [GlucoseReadingController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/glucose', [GlucoseReadingController::class, 'index']);
+    Route::post('/glucose', [GlucoseReadingController::class, 'store']);
+    Route::get('/glucose/{id}', [GlucoseReadingController::class, 'show']);
+    Route::put('/glucose/{id}', [GlucoseReadingController::class, 'update']);
+    Route::delete('/glucose/{id}', [GlucoseReadingController::class, 'destroy']);
 });
 
